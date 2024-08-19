@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test{% endblock %}
+
+{% block body %}
+    <h1>Ici c'est la page test</h1>
+    <ul>
+        <li>Data : {{ controller_name }}</li>
+        <li>Data : {{ name }}</li>
+        <li>Data : {{ age }}</li>
+        <li>Data : {{ hobbies | join(', ') }}</li>
+        <li>Data : {{ now | date('d-m-Y') }}</li>
+    </ul>
+{% endblock %}
