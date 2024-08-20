@@ -7,5 +7,13 @@
 {% block body %}
     Liste des séries
 
-    {{ dump(movies) }}
+    <section class="series-list">
+        {% for serie in series %}
+            <article>
+                <a href="{{ path('serie_detail', {'id': serie.id}) }}" title="View series's details">
+                    <img src="{{ asset("img/posters/series/" ~ serie.poster) }}" alt="{{ serie.name }}">
+                </a>
+            </article>
+        {% endfor %}
+    </section>
 {% endblock %}

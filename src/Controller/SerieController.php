@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Serie;
+use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,16 +13,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class SerieController extends AbstractController
 {
     #[Route('/', name: 'list')]
-    public function index(): Response
+    public function index(SerieRepository $seriesRep): Response
     {
-        // Gen movies list in array
-        $movies = [
-            'The Matrix', 'Inception', 'Interstellar', 'The Prestige'
-        ];
 
         return $this->render('serie/list.html.twig', [
             'title' => 'List Films',
-            'movies' => $movies
+            'series' => $seriesRep->findBy([], ['name' => 'ASC'], 30,0),
         ]);
     }
     #[Route('/create', name: 'create')]
@@ -32,7 +29,7 @@ class SerieController extends AbstractController
         ]);
     }
     #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'])]
-    public function detail(Serie $serie, EntityManagerInterface $em): Response
+    public function detail(int $id, SerieRepository $seriesRep): Response
     {
         // create serie
 //        $serie = new Serie();
@@ -65,6 +62,8 @@ class SerieController extends AbstractController
 //
 //        dump($serie);
 
+
+        $serie = $seriesRep->find($id);
 
         return $this->render('serie/detail.html.twig', [
             'title' => 'Detail',
