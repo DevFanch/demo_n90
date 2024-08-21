@@ -15,10 +15,10 @@ class SerieController extends AbstractController
     #[Route('/', name: 'list')]
     public function index(SerieRepository $seriesRep): Response
     {
-
         return $this->render('serie/list.html.twig', [
             'title' => 'List Films',
-            'series' => $seriesRep->findBy([], ['name' => 'ASC'], 30,0),
+            'series' => $seriesRep->findBestSeriesQB()
+//            'series' => $seriesRep->findBy([], ['name' => 'ASC'], 30,0),
         ]);
     }
     #[Route('/create', name: 'create')]
