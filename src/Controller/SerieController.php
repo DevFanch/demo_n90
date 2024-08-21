@@ -32,13 +32,13 @@ class SerieController extends AbstractController
 
         // Submit and Validate
         $serieForm->handleRequest($request);
-        if ($serieForm->isSubmitted()) {
+        if ($serieForm->isSubmitted() && $serieForm->isValid()) {
             // Persist
             $em->persist($serie);
             $em->flush();
             // Add Succes notif
             $this->addFlash('success', 'Serie created');
-            return $this->redirectToRoute('serie_list');
+            return $this->redirectToRoute('serie_detail', ['id' => $serie->getId()]);
         }
 
         return $this->render('serie/create.html.twig', [
@@ -48,7 +48,7 @@ class SerieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'])]
-    public function detail(int $id, SerieRepository $seriesRep): Response
+    public function detail(Serie $serie): Response
     {
         // create serie
 //        $serie = new Serie();
@@ -82,7 +82,7 @@ class SerieController extends AbstractController
 //        dump($serie);
 
 
-        $serie = $seriesRep->find($id);
+//        $serie = $seriesRep->find($id);
 
         return $this->render('serie/detail.html.twig', [
             'title' => 'Detail',

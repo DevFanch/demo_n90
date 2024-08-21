@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SerieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
 class Serie
@@ -14,15 +15,22 @@ class Serie
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'Le nom ne doit pas être vide')]
+    #[Assert\Length(
+        min: 3, max: 255,
+        minMessage: 'Le nom doit contenir au moins {{ limit }} caractères',
+        maxMessage: 'Le nom ne doit pas contenir plus de {{ limit }} caractères')]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $overview = null;
 
+    #[Assert\Choice(choices: ['En Cours', 'Termine', 'Abandonne'])]
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
+    #[Assert\Range(min:0, max: 10, notInRangeMessage: 'La valeur doit etre comprise entre {{ min }} et {{ max }}')]
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 1)]
     private ?string $vote = null;
 
@@ -35,6 +43,7 @@ class Serie
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $firstAirDate = null;
 
+    #[Assert\GreaterThanOrEqual(propertyPath: 'firstAirDate', message: 'La date doit etre superieur ou egale au premier episode')]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $lastAirDate = null;
 
