@@ -26,8 +26,7 @@ class SerieRepository extends ServiceEntityRepository
                 "Select s from App\Entity\Serie s
                 Where s.vote > 8
                 AND s.popularity > 150 
-                ORDER BY s.popularity DESC
-                ";
+                ORDER BY s.popularity DESC";
             $q = $em->createQuery($dql);
             $q->setMaxResults(20);
             return $q->getResult();

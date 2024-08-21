@@ -18,7 +18,7 @@ class SerieController extends AbstractController
         return $this->render('serie/list.html.twig', [
             'title' => 'List Films',
             'series' => $seriesRep->findBestSeriesQB()
-//            'series' => $seriesRep->findBy([], ['name' => 'ASC'], 30,0),
+            // 'series' => $seriesRep->findBy([], ['name' => 'ASC'], 30,0),
         ]);
     }
     #[Route('/create', name: 'create')]
