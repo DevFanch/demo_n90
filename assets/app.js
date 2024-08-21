@@ -9,3 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+const $notif = document.getElementById('notif');
+if ($notif) {
+    setTimeout(() => $notif.remove(), 4000);
+}
