@@ -30,7 +30,7 @@ class Serie
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
-    #[Assert\Range(min:0, max: 10, notInRangeMessage: 'La valeur doit etre comprise entre {{ min }} et {{ max }}')]
+    #[Assert\Range(min:0, max: 10, notInRangeMessage: 'La valeur de votre vote doit être comprise entre {{ min }} et {{ max }}')]
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 1)]
     private ?string $vote = null;
 
@@ -40,6 +40,7 @@ class Serie
     #[ORM\Column(length: 255)]
     private ?string $genres = null;
 
+    #[Assert\LessThan('today', message: 'La date doit etre inferieur ou egale a aujourd\'hui')]
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $firstAirDate = null;
 
