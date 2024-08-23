@@ -10,6 +10,8 @@
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
+
+        {% block extrastyles %}{% endblock %}
     </head>
     <body>
         {% include "partials/header.html.twig" %}

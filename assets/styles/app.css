@@ -96,3 +96,18 @@ nav li {
         grid-template-columns: 300px 1fr;
     }
 }
+
+/* Season */
+.serie-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+}
+.serie-details-infos > div {
+    margin-bottom: 1rem;
+}
+@media screen and (min-width: 700px) {
+    .serie-details {
+        grid-template-columns: 300px 1fr;
+    }
+}

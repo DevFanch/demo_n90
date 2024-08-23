@@ -5,7 +5,37 @@
 {% endblock %}
 
 {% block body %}
-    <h2>{{ serie.name }}</h2>
-    <div>{{ serie.overview }}</div>
-    <div>{{ serie.vote }}</div>
+    <div class="serie-details">
+        <div>
+            <img src="{{ asset("img/posters/series/" ~ serie.poster) }}" alt="{{ serie.name }}">
+        </div>
+        <div class="serie-details-infos">
+            <h2>{{ serie.name }}</h2>
+            <div>User ratings : {{ serie.vote }}</div>
+            <div>Categorized in: {{ serie.genres }}</div>
+            <div>Serie status: {{ serie.status }}</div>
+            <div>Aired from {{ serie.firstAirDate | date("Y-m-d") }} to {{ serie.lastAirDate | date("Y-m-d") }}</div>
+            <div>{{ serie.overview | nl2br }}</div>
+            <a class="btn btn-info" href="{{ path('season_create') }}">Add a Season</a>
+        </div>
+    </div>
+
+    <h3>Seasons</h3>
+    {% for season in serie.seasons %}
+        <article>
+            <h4>Saison : {{ season.number }}</h4>
+            <div>Sortie le  : {{ season.firstAirDate | date("d-m-Y") }}</div>
+            <div><img src="{{ asset("img/posters/seasons/" ~ season.poster) }}" alt="Saison {{ season.number }}"></div>
+        </article>
+    {% else %}
+        <p>No seasons</p>
+    {% endfor %}
+{% endblock %}
+
+{% block extrastyles %}
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url("{{ asset('img/backdrops/' ~ serie.backdrop) }}");
+        }
+    </style>
 {% endblock %}

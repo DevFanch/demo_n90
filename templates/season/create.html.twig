@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() ~ ' - ' ~ 'Détail d\'une série' }}
+{% endblock %}
+
+{% block body %}
+    <h2>Creer une nouvelle saison</h2>
+    {{ form(seasonForm) }}
+
+{% endblock %}
