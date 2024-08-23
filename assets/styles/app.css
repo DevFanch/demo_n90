@@ -111,3 +111,12 @@ nav li {
         grid-template-columns: 300px 1fr;
     }
 }
+
+.seasons article {
+    display: flex;
+    margin-bottom: 1rem;
+}
+.seasons article img {
+    max-height: 200px;
+    margin-right: 0.6rem;
+}

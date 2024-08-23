@@ -45,8 +45,7 @@ class SeasonType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Submit',
                 'attr' => ['class' => 'btn btn-primary']
-            ]
-            )
+            ])
         ;
     }
 

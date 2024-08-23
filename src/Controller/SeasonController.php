@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class SeasonController extends AbstractController
 {
 
-    #[Route('/create', name: 'create')]
+    #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $season = new Season();
@@ -34,5 +34,17 @@ class SeasonController extends AbstractController
             'title' => 'Add new Season',
             'seasonForm' => $seasonForm
         ]);
+    }
+
+    #[Route('/delete/{id<\d+>}', name: 'delete', methods: ['GET'])]
+    public function delete(Season $season, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($season);
+        $entityManager->flush();
+
+        // Notif
+        $this->addFlash('success', 'Season deleted');
+
+        return $this->redirectToRoute('app_home');
     }
 }

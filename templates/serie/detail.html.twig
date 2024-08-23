@@ -16,16 +16,21 @@
             <div>Serie status: {{ serie.status }}</div>
             <div>Aired from {{ serie.firstAirDate | date("Y-m-d") }} to {{ serie.lastAirDate | date("Y-m-d") }}</div>
             <div>{{ serie.overview | nl2br }}</div>
-            <a class="btn btn-info" href="{{ path('season_create') }}">Add a Season</a>
+            <a class="btn btn-info" href="{{ path('season_create', { 'id' : serie.id }) }}">Add a Season</a>
         </div>
     </div>
 
     <h3>Seasons</h3>
     {% for season in serie.seasons %}
         <article>
-            <h4>Saison : {{ season.number }}</h4>
-            <div>Sortie le  : {{ season.firstAirDate | date("d-m-Y") }}</div>
-            <div><img src="{{ asset("img/posters/seasons/" ~ season.poster) }}" alt="Saison {{ season.number }}"></div>
+            <img src="{{ asset("img/posters/seasons/" ~ season.poster) }}" alt="{{ serie.name }} season #{{ season.number }}">
+            <div>
+                <h4>Season {{ season.number }}</h4>
+                {% if season.overview %}
+                    <div>{{ season.overview }}</div>
+                {% endif %}
+            </div>
+            <a class="btn btn-danger" href="{{ path('season_delete', { 'id' : season.id }) }}" onclick="return confirm('Are you sure you want to delete this season?');">Remove this season</a>
         </article>
     {% else %}
         <p>No seasons</p>

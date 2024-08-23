@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/serie', name: 'serie_')]
 class SerieController extends AbstractController
 {
-    #[Route('/', name: 'list')]
+    #[Route('/', name: 'list', methods: ['GET'])]
     public function index(SerieRepository $seriesRep): Response
     {
         return $this->render('serie/list.html.twig', [
@@ -23,7 +23,7 @@ class SerieController extends AbstractController
             // 'series' => $seriesRep->findBy([], ['name' => 'ASC'], 30,0),
         ]);
     }
-    #[Route('/create', name: 'create')]
+    #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         // Create and submit serie form
@@ -47,7 +47,7 @@ class SerieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'])]
+    #[Route('/{id}', name: 'detail', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function detail(Serie $serie): Response
     {
         // create serie
@@ -83,6 +83,10 @@ class SerieController extends AbstractController
 
 
 //        $serie = $seriesRep->find($id);
+
+        if (!$serie) {
+            throw $this->createNotFoundException("oh no!!!");
+        }
 
         return $this->render('serie/detail.html.twig', [
             'title' => 'Detail',
